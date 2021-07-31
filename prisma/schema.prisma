@@ -1,0 +1,40 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String     @id @default(cuid())
+  username String     @unique @db.VarChar(15)
+  email    String     @unique
+  password String
+  wins     Game[]     @relation("wins")
+  losses   Game[]     @relation("losses")
+  settings Settings[]
+}
+
+model Game {
+  id          String @id @default(cuid())
+  winnerScore Int
+  loserScore  Int
+  winner      User   @relation(name: "wins", fields: [winnerId], references: [id])
+  winnerId    String
+  loser       User   @relation(name: "losses", fields: [loserId], references: [id])
+  loserId     String
+}
+
+model Settings {
+  id     String        @id @default(cuid())
+  theme  SettingsTheme
+  user   User          @relation(fields: [userId], references: [id])
+  userId String
+}
+
+enum SettingsTheme {
+  LIGHT
+  DARK
+}
