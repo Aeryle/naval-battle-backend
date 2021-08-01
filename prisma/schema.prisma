@@ -5,33 +5,40 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 model User {
-  id       String     @id @default(cuid())
-  username String     @unique @db.VarChar(15)
-  email    String     @unique
-  password String
-  wins     Game[]     @relation("wins")
-  losses   Game[]     @relation("losses")
-  settings Settings[]
+  id        String     @id @default(cuid())
+  username  String     @unique @db.VarChar(15)
+  email     String     @unique
+  password  String
+  wins      Game[]     @relation("wins")
+  losses    Game[]     @relation("losses")
+  settings  Settings[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Game {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   winnerScore Int
   loserScore  Int
-  winner      User   @relation(name: "wins", fields: [winnerId], references: [id])
+  winner      User     @relation(name: "wins", fields: [winnerId], references: [id])
   winnerId    String
-  loser       User   @relation(name: "losses", fields: [loserId], references: [id])
+  loser       User     @relation(name: "losses", fields: [loserId], references: [id])
   loserId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Settings {
-  id     String        @id @default(cuid())
-  theme  SettingsTheme
-  user   User          @relation(fields: [userId], references: [id])
-  userId String
+  id        String        @id @default(cuid())
+  theme     SettingsTheme
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
 enum SettingsTheme {
