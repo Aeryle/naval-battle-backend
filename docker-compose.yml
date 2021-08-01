@@ -8,6 +8,6 @@ services:
       - '5432:5432'
 
     environment:
-      POSTGRES_USER: naval-battle
-      POSTGRES_PASSWORD: naval-battle
-      POSTGRES_DB: naval-battle
+      POSTGRES_USER: navalbattle
+      POSTGRES_PASSWORD: navalbattle
+      POSTGRES_DB: navalbattle
