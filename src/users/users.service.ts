@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
+import PrismaService from '../prisma/prisma.service';
 
 @Injectable()
-export class UsersService {
+export default class UsersService {
   private readonly select: Prisma.UserSelect = {
     id: true,
     username: true,
     email: true,
     createdAt: true,
     updatedAt: true,
+  };
+
+  private readonly orderBy: Prisma.UserOrderByInput = {
+    createdAt: 'desc',
   };
 
   constructor(private readonly prismaService: PrismaService) {}
@@ -24,6 +28,7 @@ export class UsersService {
   findAll() {
     return this.prismaService.user.findMany({
       select: this.select,
+      orderBy: this.orderBy,
     });
   }
 

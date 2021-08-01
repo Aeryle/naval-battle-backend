@@ -3,16 +3,18 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import CreateUserDto from './dto/create-user.dto';
+import UpdateUserDto from './dto/update-user.dto';
+import UsersService from './users.service';
 
 @Controller('users')
-export class UsersController {
+export default class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
@@ -43,8 +45,9 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
-    return this.usersService.remove({
+    this.usersService.remove({
       id,
     });
   }
