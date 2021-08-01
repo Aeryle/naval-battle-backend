@@ -1,8 +1,7 @@
-import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
-
+import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
+import AppModule from './app.module';
 
 dotenv.config();
 
@@ -18,4 +17,5 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 5000);
 }
 
+// eslint-disable-next-line no-console
 bootstrap().catch(console.error);

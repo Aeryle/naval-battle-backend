@@ -1,7 +1,7 @@
 import { IsEmail, Matches, MaxLength, MinLength } from 'class-validator';
 import { PASSWORD_REGEX } from '../../constants';
 
-export class CreateUserDto {
+export default class CreateUserDto {
   @MinLength(3)
   @MaxLength(15)
   username: string;

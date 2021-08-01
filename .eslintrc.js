@@ -5,10 +5,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['airbnb-typescript/base', 'plugin:prettier/recommended'],
   root: true,
   env: {
     node: true,
@@ -21,6 +18,16 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'linebreak-style': ['warn', 'unix'],
-    'prefer-template': 'warn',
+    'prefer-template': 'error',
+    'class-methods-use-this': 'off',
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
 };
